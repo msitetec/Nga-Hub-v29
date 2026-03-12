@@ -480,7 +480,7 @@ const App = () => {
           
           {/* TELA: GESTÃO NORMATIVA (NOVA) */}
           {activeTab === 'laws' && (
-             <div className="p-12 max-w-6xl mx-auto animate-in fade-in duration-500">
+             <div className="p-12 w-full max-w-full animate-in fade-in duration-500">
                <div className="flex justify-between items-center mb-12">
                  <div>
                     <h2 className="text-4xl font-black text-slate-800 tracking-tighter flex items-center gap-3"><BookOpen className="text-indigo-600"/> Base Legal Customizada</h2>
@@ -510,7 +510,7 @@ const App = () => {
 
           {/* TELA EXPLORADOR */}
           {activeTab === 'explorer' && (
-            <div className="p-12 max-w-6xl mx-auto animate-in fade-in duration-500">
+            <div className="p-12 w-full max-w-full animate-in fade-in duration-500">
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-4xl font-black text-slate-800">Parcerias</h2>
                 <button onClick={() => setShowCreateModal(true)} className="bg-indigo-600 text-white px-10 py-4 rounded-[2.5rem] font-black flex items-center gap-3 shadow-2xl hover:bg-indigo-700 transition-all"><Plus size={24} /> Nova Parceria</button>
@@ -529,7 +529,7 @@ const App = () => {
           )}
 
           {activeTab === 'dashboard' && currentProject && (
-            <div className="p-12 max-w-6xl mx-auto space-y-12 animate-in slide-in-from-right duration-500">
+            <div className="p-12 w-full max-w-full space-y-12 animate-in slide-in-from-right duration-500">
               <div className="flex justify-between items-center">
                 <button onClick={() => setActiveTab('explorer')} className="flex items-center gap-2 text-slate-500 font-black text-sm uppercase">Voltar</button>
                 <div className="flex gap-4">
@@ -571,7 +571,7 @@ const App = () => {
           )}
 
           {activeTab === 'flow' && currentProject && (
-            <div className="p-12 max-w-6xl mx-auto space-y-12 animate-in zoom-in-95 duration-500">
+            <div className="p-12 w-full max-w-full space-y-12 animate-in zoom-in-95 duration-500">
                <div className="flex justify-between items-center">
                   <h2 className="text-4xl font-black text-slate-800 tracking-tighter flex items-center gap-4"><GitMerge className="text-indigo-600" size={36}/> Fluxo de Liberação</h2>
                   <button onClick={exportFlow} className="bg-indigo-600 text-white px-10 py-4 rounded-[2.5rem] font-black flex items-center gap-3 shadow-2xl hover:bg-indigo-700 transition-all"><Download size={24} /> Exportar</button>
@@ -604,7 +604,7 @@ const App = () => {
           )}
 
           {activeTab === 'editor' && currentProject && (
-            <div className="p-12 max-w-7xl mx-auto flex gap-10">
+            <div className="p-12 w-full max-w-full flex gap-10">
                <div className="w-80 space-y-8 shrink-0">
                   <div className="bg-white p-8 rounded-[3.5rem] border border-slate-200 space-y-4 shadow-sm">
                     <h4 className="text-[10px] font-black uppercase text-indigo-600 border-b pb-2">Identificação</h4>
