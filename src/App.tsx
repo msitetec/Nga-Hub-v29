@@ -96,7 +96,7 @@ const App = () => {
     competencia: "FEVEREIRO/2026"
   });
 
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
   const allLegislations = [...LEGISLACOES, ...customLaws];
 
