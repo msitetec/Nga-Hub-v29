@@ -100,30 +100,47 @@ const App = () => {
 
   const allLegislations = [...LEGISLACOES, ...customLaws];
 
-  // --- GEMINI API CORE ---
-  const callGemini = async (prompt, systemInstruction = "Você é um Analista de Auditoria do NGA/SMADS.") => {
-    let delay = 1000;
-    for (let i = 0; i < 5; i++) {
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: String(prompt) }] }],
-            systemInstruction: { parts: [{ text: String(systemInstruction) }] }
-          })
-        });
-        const res = await response.json();
-        const text = res.candidates?.[0]?.content?.parts?.[0]?.text;
-        return typeof text === 'string' ? text : "IA retornou um formato inesperado.";
-      } catch (e) {
-        await new Promise(r => setTimeout(r, delay));
-        delay *= 2;
-      }
-    }
-    return "Erro: Falha na conexão com a IA após tentativas.";
-  };
+  // --- AI API CORE (Agora usando OpenAI GPT-4o) ---
+const callGemini = async (prompt, systemInstruction = "Você é um Analista de Auditoria do NGA/SMADS.") => {
+  // Lê a nova chave da OpenAI
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY; 
 
+  if (!apiKey) {
+    console.error("Chave da OpenAI ausente!");
+    return "Erro: Chave de API não configurada.";
+  }
+
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o', // O modelo mais poderoso da OpenAI
+        messages: [
+          { role: "system", content: systemInstruction },
+          { role: "user", content: String(prompt) }
+        ],
+        temperature: 0.2 // Mantém a IA focada e analítica
+      })
+    });
+
+    if (!response.ok) {
+       const errorData = await response.json();
+       console.error("Erro detalhado da OpenAI:", errorData);
+       return `Erro da API OpenAI: ${errorData.error?.message || response.status}`;
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+
+  } catch (error) {
+    console.error("Falha ao contactar a OpenAI:", error);
+    return "Erro de comunicação com a IA.";
+  }
+};
   // --- FUNÇÕES DE NEGÓCIO ---
 
   const handleCreateProject = async () => {
